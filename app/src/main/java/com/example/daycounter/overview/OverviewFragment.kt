@@ -27,9 +27,9 @@ class OverviewFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        //val dataSource = EventDatabase.getInstance(application).eventDatabaseDao
+        val dataSource = EventDatabase.getInstance(application).eventDatabaseDao
 
-        val viewModelFactory = OverviewViewModelFactory(/*dataSource,*/ application)
+        val viewModelFactory = OverviewViewModelFactory(dataSource, application)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(OverviewViewModel::class.java)
         binding.viewModel = viewModel
         viewModel.navigateToEventDetails.observe(this, Observer { shouldNavigate ->

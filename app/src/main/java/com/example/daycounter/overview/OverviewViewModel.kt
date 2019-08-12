@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.daycounter.database.EventDatabaseDao
 import timber.log.Timber
 
-class OverviewViewModel(/*val database: EventDatabaseDao,*/
+class OverviewViewModel(val database: EventDatabaseDao,
                         application: Application) : ViewModel() {
 
     private val _navigateToEventDetails = MutableLiveData<Boolean>()
