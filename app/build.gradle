@@ -40,10 +40,20 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
 
     // Lifecycle
-    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$version_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
+
+    // Recyclerview
+    implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
@@ -52,8 +62,6 @@ dependencies {
     // Timber
     implementation "com.jakewharton.timber:timber:$version_timber"
 
-//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

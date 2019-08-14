@@ -6,10 +6,10 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daycounter.R
-import com.example.daycounter.database.EventDatabase
 import com.example.daycounter.databinding.FragmentOverviewBinding
 import timber.log.Timber
 
@@ -23,14 +23,11 @@ class OverviewFragment : Fragment() {
     ): View? {
         Timber.d("onCreateView")
 
-        val binding: FragmentOverviewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_overview, container, false)
+        val binding: FragmentOverviewBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_overview, container, false)
 
-        val application = requireNotNull(this.activity).application
+        viewModel = ViewModelProvider(this).get(OverviewViewModel::class.java)
 
-        val dataSource = EventDatabase.getInstance(application).eventDatabaseDao
-
-        val viewModelFactory = OverviewViewModelFactory(dataSource, application)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(OverviewViewModel::class.java)
         binding.viewModel = viewModel
         viewModel.navigateToEventDetails.observe(this, Observer { shouldNavigate ->
             if (shouldNavigate) {
@@ -38,6 +35,15 @@ class OverviewFragment : Fragment() {
                 viewModel.onNavigatedToEventDetails()
             }
         })
+
+        val adapter = EventListAdapter()
+
+        viewModel.events.observe(this, Observer { events ->
+            events?.let { adapter.setEvents(it) }
+        })
+
+
+        binding.eventList.adapter = adapter
 
         binding.lifecycleOwner = this
 

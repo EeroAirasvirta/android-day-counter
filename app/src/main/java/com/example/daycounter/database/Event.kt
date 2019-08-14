@@ -7,13 +7,14 @@ import java.util.*
 
 @Entity(tableName = "event_table")
 data class Event(
+
     @PrimaryKey(autoGenerate = true)
     var eventId: Long = 0L,
 
     @ColumnInfo(name = "event_date")
-    val date: Int = 0,//Calendar = Calendar.getInstance(),
+    val date: Calendar = Calendar.getInstance(),
 
-    var title: Int = 0,
+    var title: String = "",
 
-    var description: Int = 0
+    var description: String = ""
 )
