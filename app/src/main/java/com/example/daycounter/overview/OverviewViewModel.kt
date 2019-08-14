@@ -20,19 +20,19 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         events = repository.allEvents
     }
 
-    private val _navigateToEventDetails = MutableLiveData<Boolean>()
-    val navigateToEventDetails: LiveData<Boolean>
+    private val _navigateToEventDetails = MutableLiveData<Long>()
+    val navigateToEventDetails: LiveData<Long>
         get() = _navigateToEventDetails
+
 
     fun onNewEventClicked() {
         Timber.d("onNewEventClicked")
-        //_navigateToEventDetails.value = true
-        insert(Event())
+        _navigateToEventDetails.value = -1
     }
 
     fun onNavigatedToEventDetails() {
         Timber.d("onNavigatedToEventDetails")
-        _navigateToEventDetails.value = false
+        _navigateToEventDetails.value = null
     }
 
     fun insert(event: Event) = viewModelScope.launch(Dispatchers.IO) {

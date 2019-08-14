@@ -23,15 +23,14 @@ class OverviewFragment : Fragment() {
     ): View? {
         Timber.d("onCreateView")
 
-        val binding: FragmentOverviewBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_overview, container, false)
+        val binding = FragmentOverviewBinding.inflate(inflater)
 
         viewModel = ViewModelProvider(this).get(OverviewViewModel::class.java)
 
         binding.viewModel = viewModel
-        viewModel.navigateToEventDetails.observe(this, Observer { shouldNavigate ->
-            if (shouldNavigate) {
-                findNavController().navigate(OverviewFragmentDirections.actionShowEventDetails())
+        viewModel.navigateToEventDetails.observe(this, Observer { eventId ->
+            eventId?.let {
+                findNavController().navigate(OverviewFragmentDirections.actionShowEventDetails(eventId))
                 viewModel.onNavigatedToEventDetails()
             }
         })
