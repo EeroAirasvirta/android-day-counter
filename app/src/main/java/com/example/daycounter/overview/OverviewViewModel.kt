@@ -30,6 +30,11 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         _navigateToEventDetails.value = -1
     }
 
+    fun onEventClicked(event: Event) {
+        Timber.d("onEventClicked(eventId: ${event.eventId})")
+        _navigateToEventDetails.value = event.eventId
+    }
+
     fun onNavigatedToEventDetails() {
         Timber.d("onNavigatedToEventDetails")
         _navigateToEventDetails.value = null

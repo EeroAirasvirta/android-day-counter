@@ -35,14 +35,16 @@ class OverviewFragment : Fragment() {
             }
         })
 
-        val adapter = EventListAdapter()
-
-        viewModel.events.observe(this, Observer { events ->
-            events?.let { adapter.setEvents(it) }
+        val adapter = EventListAdapter(EventClickListener {
+            viewModel.onEventClicked(it)
         })
 
-
         binding.eventList.adapter = adapter
+
+
+        viewModel.events.observe(this, Observer { events ->
+            events?.let { adapter.submitList(it) }
+        })
 
         binding.lifecycleOwner = this
 
