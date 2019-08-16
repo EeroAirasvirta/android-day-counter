@@ -14,6 +14,6 @@ interface EventDatabaseDao {
     @Query("SELECT * FROM event_table ORDER BY eventId DESC")
     fun getAllEvents(): LiveData<List<Event>>
 
-/*    @Query("SELECT * from event_table WHERE eventId = :key")
-    fun get(key: Long): Event?*/
+    @Query("SELECT * from event_table WHERE eventId = :key")
+    fun get(key: Long): LiveData<Event>
 }

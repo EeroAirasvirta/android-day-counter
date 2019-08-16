@@ -1,10 +1,12 @@
 package com.example.daycounter.overview
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import com.example.daycounter.database.Event
 import com.example.daycounter.database.EventDatabase
 import com.example.daycounter.repository.EventRepository
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 import timber.log.Timber
 
@@ -24,10 +26,18 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     val navigateToEventDetails: LiveData<Long>
         get() = _navigateToEventDetails
 
-
     fun onNewEventClicked() {
         Timber.d("onNewEventClicked")
-        _navigateToEventDetails.value = -1
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val newEvent = Event()
+            Timber.d("Created new event (id: ${newEvent.eventId})")
+            repository.insert(newEvent)
+            Timber.d("actual id: ${newEvent.eventId}")
+
+            // Todo: Disable FAB after clicking it
+            _navigateToEventDetails.postValue(newEvent.eventId)
+        }
     }
 
     fun onEventClicked(event: Event) {

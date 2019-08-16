@@ -11,4 +11,7 @@ class EventRepository(private val eventDao: EventDatabaseDao) {
     suspend fun insert(event: Event) {
         eventDao.insert(event)
     }
+
+    @WorkerThread
+    fun getEventById(eventId: Long) = eventDao.get(eventId)
 }
