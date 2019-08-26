@@ -4,8 +4,8 @@ buildscript {
     ext {
         version_constraint_layout = "1.1.3"
         version_core = "1.0.2"
-        version_coroutine = "1.1.0"
-        version_gradle = "3.4.2"
+        version_coroutine = "1.1.1"
+        version_gradle = '3.5.0'
         version_kotlin = "1.3.41"
         version_lifecycle = "2.2.0-alpha03"
         version_navigation = "2.0.0"

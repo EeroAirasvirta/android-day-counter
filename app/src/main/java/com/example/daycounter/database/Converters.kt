@@ -1,12 +1,12 @@
 package com.example.daycounter.database
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.time.LocalDate
 
 class Converters {
     @TypeConverter
-    fun calendarToDatestamp(calendar: Calendar): Long = calendar.timeInMillis
+    fun localDateToDatestamp(date: LocalDate): Long = date.toEpochDay()
 
     @TypeConverter
-    fun datestampToCalendar(value: Long): Calendar = Calendar.getInstance().apply { timeInMillis = value }
+    fun datestampToLocalDate(value: Long): LocalDate = LocalDate.ofEpochDay(value)
 }

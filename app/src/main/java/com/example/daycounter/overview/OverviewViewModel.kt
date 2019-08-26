@@ -32,11 +32,11 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch(Dispatchers.IO) {
             val newEvent = Event()
             Timber.d("Created new event (id: ${newEvent.eventId})")
-            repository.insert(newEvent)
-            Timber.d("actual id: ${newEvent.eventId}")
+            val newId = repository.insert(newEvent)
+            Timber.d("actual id: ${newId}")
 
             // Todo: Disable FAB after clicking it
-            _navigateToEventDetails.postValue(newEvent.eventId)
+            _navigateToEventDetails.postValue(newId)
         }
     }
 

@@ -8,10 +8,12 @@ class EventRepository(private val eventDao: EventDatabaseDao) {
     val allEvents = eventDao.getAllEvents()
 
     @WorkerThread
-    suspend fun insert(event: Event) {
-        eventDao.insert(event)
+    suspend fun insert(event: Event): Long {
+        return eventDao.insert(event)
     }
 
     @WorkerThread
     fun getEventById(eventId: Long) = eventDao.get(eventId)
+
+    fun update(event: Event) = eventDao.updateEvent(event)
 }

@@ -3,7 +3,7 @@ package com.example.daycounter.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+import java.time.LocalDate
 
 @Entity(tableName = "event_table")
 data class Event(
@@ -12,7 +12,7 @@ data class Event(
     var eventId: Long = 0L,
 
     @ColumnInfo(name = "event_date")
-    val date: Calendar = Calendar.getInstance(),
+    var date: LocalDate = LocalDate.now(),
 
     var title: String = "",
 
